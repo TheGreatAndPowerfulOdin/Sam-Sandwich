@@ -1,5 +1,5 @@
 
-def bread_selection():
+def bread_selection(): #allows user to select their preferred bread
     bread_list = ["White", "Brown", "Italian", "Granary"]
     count=0
     print("We have the following breads: ")
