@@ -7,7 +7,7 @@ def force_number(number_type = 0,lower_boundary = 0,upper_boundary = 10,number_a
         try:
             number = internal_number_types[number_type](input(f"Enter a valid {external_number_types[number_type]}:"))
         except ValueError:
-            print("Invalid value. Enter a valid {}.".format(external_number_types[number_type]))
+            print(f"Invalid value. Enter a valid {external_number_types[number_type]}.")
             continue
         if  lower_boundary <= number <= upper_boundary:
             if number_action_type is not None and number_type == 1:
@@ -17,20 +17,20 @@ def force_number(number_type = 0,lower_boundary = 0,upper_boundary = 10,number_a
                     number = number_action_types[number_action_type](number)
             return number
         else:
-            print("Unexpected value. Enter a valid {} between {} and {}.".format(external_number_types[number_type],lower_boundary,upper_boundary))
+            print(f"Unexpected value. Enter a valid {external_number_types[number_type]} between {lower_boundary} and {upper_boundary}.")
 
 def force_name(string_type = 0,upper = 20,lower = 2):
     while True:
         string_types = ["first", "middle", "last"]
-        string = str(input("What is your {} name?".format(string_types[string_type])))
+        string = str(input(f"What is your {string_types[string_type]} name?"))
         string = string.replace(" ","").lower().capitalize()
-        if string.isalpha() and len(string) > lower and len(string) < upper :
+        if string.isalpha() and len(string) >= lower and len(string) <= upper :
             return string
             #Returns valid string
         elif not string.isalpha() and string != "":
             print("Error: Invalid string\nExpected only alphabetic characters")
-        elif len(string) <= lower or len(string) >= upper:
-            print("Error: Unexpected value\nExpected a string between {} and {} characters.".format(lower,upper))
+        elif len(string) < lower or len(string) > upper:
+            print(f"Error: Unexpected value\nExpected a string between {lower} and {upper} characters.")
 
 def bread_selection(): #allows user to select their preferred bread
     bread_list = ["White", "Brown", "Italian", "Granary"]
@@ -112,18 +112,19 @@ def main():
             #break
         #else:
             #print("Invalid phone number")
-    sandwich_order.append(f"Name: {name}")
+    time = datetime.datetime.now()
+    sandwich_order.append(f"******** Order for {name} {cellphone_number} ********")
+    sandwich_order.append(f"\nName: {name}")
     sandwich_order.append(f"\nCellphone number: {cellphone_number}")
-    sandwich_order.append(f"\nDate/time: {datetime.datetime.now()}")
+    sandwich_order.append(f"\nDate/time: {time}")
     sandwich_order.append(f"\nBread: {bread_choice}")
     sandwich_order.append(f"\nMeat: {meat_choice}")
     sandwich_order.append(f"\nSalad: {salad_choice}")
+    sandwich_order.append(f"\n******** End of Order: {time} ********")
     outf = open("order_record.txt","a")
-    outf.write("\n\n")
     for i in sandwich_order:
         outf.write(i)
+    outf.write("\n\n")
     outf.close()
     
-
-
 main()
